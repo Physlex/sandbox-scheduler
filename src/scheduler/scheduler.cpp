@@ -12,6 +12,18 @@ template<>
 Scheduler<Cooperative>::Scheduler() {}
 
 
+template<>
+void Scheduler<Cooperative>::registerTask(Task *task)
+{
+}
+
+
+template<>
+void Scheduler<Cooperative>::launch()
+{
+}
+
+
 /*** PREEMPTIVE SCHEDULER ***************************************************************/
 
 template<>

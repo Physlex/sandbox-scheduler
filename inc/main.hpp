@@ -8,6 +8,8 @@
 
 #include <stdint.h>
 
+#include "scheduler/scheduler.hpp"
+
 
 /*** CLASSES ****************************************************************************/
 
@@ -30,12 +32,25 @@ class App
         Terminate=1,
     };
 
+    /** @enum ExitKind
+     *  @brief TODO: DOCS
+     */
+    enum class ExitKind
+    {
+        /** @memberof ExitKind
+         *  @brief TODO: DOCS
+         */
+        Success=0,
+    };
+
+
+  public:
     /** @fn static void init()
      *  @brief Initializes the App.
      */
     static void init();
 
-    /** @fn static void iter()
+    /** @fn static StatusKind iter()
      *  @brief Advances the App state by one tick.
      * 
      *         Called via the entry handler once per "tick", where a tick is an
@@ -43,10 +58,11 @@ class App
      */
     static StatusKind iter();
 
-    /** @fn static void exit()
+    /** @fn static ExitKind exit()
      *  @brief Terminates the Application.
      */
-    static uint8_t exit();
+    static ExitKind exit();
+
 
   protected:
     //! @brief Deleted constructor.
@@ -57,6 +73,10 @@ class App
 
     //! @brief Deleted assignment operator.
     App &operator=(const App &rhs) = delete;
+
+  private:
+    static Scheduler<Cooperative> coopScheduler;
+    static Scheduler<Preemptive> premScheduler;
 };
 
 #endif  // APP_MAIN_HPP_
